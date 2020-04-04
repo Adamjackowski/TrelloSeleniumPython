@@ -1,0 +1,6 @@
+{
+    "existing_login": "",
+    "existing_password": "",
+    "not_existing_login": "fake@gmail.com",
+    "not_existing_password":"fake_password"
+}
