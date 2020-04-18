@@ -19,13 +19,22 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 
 
+def pytest_addoption(parser):
+    parser.addoption("--browser", action="store", default="Chrome")
+
+
+@pytest.fixture(autouse=True, scope='session')
+def declared_browser(pytestconfig):
+    return pytestconfig.getoption("browser")
+
+
 '''
 Fixture method for init and deinit browser before and after all tests. It is called once a test session.
 When test fails, the screenshot is beeing taken
 '''
-@pytest.fixture(scope='session', params=["Chrome", "Firefox", "Edge"])
-def browsers(request):
-    choosen_browser = request.param
+@pytest.fixture(scope='session')
+def browsers(request, declared_browser):
+    choosen_browser = declared_browser
     if choosen_browser == "Chrome":
         web_browser = webdriver.Chrome
         chrome_options = webdriver.ChromeOptions()
@@ -42,11 +51,11 @@ def browsers(request):
         capabilities['ms:inPrivate'] = True
         driver = webdriver.Edge(capabilities=capabilities)
         driver.implicitly_wait(5)
-
-    driver.maximize_window()  
-    
+    driver.maximize_window() 
     yield driver
     driver.quit()
+
+
 
 '''
 Method for taking the screenshot and saving in the /screenshots directory. It is called in browser fixture

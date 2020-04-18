@@ -6,10 +6,11 @@ Automated tests
 ### 1 - General requirements:
 
 1. The driver for the given browser(Firefox/Geckodriver, Chrome, Edge) must be added to the PATH environment path.
-2. Python must be added to the PATH environment path.
-3. PyTest must be installed.
-4. The config.json file must be added to the project -> See "Storing login details".
-5. After each failed test, the screenshot of last viewed screen is saved in /screenshots folder.
+2. Python3 must be added to the PATH environment path.
+3. PyTest must be installed. It can be the newest version.
+4. Selenium must be installed. It can be the newest version.
+5. The config.json file must be added to the project -> See "Storing login details".
+6. After each failed test, the screenshot of last viewed screen is saved in /screenshots folder.
 
 ### 2 - For the VS Code program:
 
@@ -19,11 +20,26 @@ Automated tests
 
 ### 3 - To be run in the console
 
-1. Open the console window in the project folder (Ctrl + Shift + PPM -> open console window).
-2. To run all tests use the pytest command.
+1. Open the console window in the project folder (Ctrl + Shift + RightMouseButton -> open console window).
+2. To run all tests use the pytest command in the root direcory. The test will be executed on default browser - Firefox -> See "Run on different browsers".
+```
+pytest
+```
 3. To run the selected test, use the command pytest filename with Tests_py.
+```
+pytest test_name.py
+```
 
-### 4 - Test scructure
+### 4 - Run on different browsers
+
+1. Tests can be executed on 3 different browsers: Chrome, Firefox and Edge. Firefox is the default one.
+2. To run tests on each browser type pytest --browser "browser_name" 
+```
+pytest --browser "Chrome"
+```
+3. Be aware that proper driver file is added to PATH enviroment variable.
+
+### 5 - Test scructure
 
 1. Tests are written in "Page Object Pattern" - please get familiar with it before starting to implement new ones.
 2. Each test is in each file and each file contain each test methods. Each method contain each test data and setUp and tearDown fuctions -> see next points.S
