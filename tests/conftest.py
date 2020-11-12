@@ -35,6 +35,7 @@ When test fails, the screenshot is beeing taken
 @pytest.fixture(scope='session')
 def browsers(request, declared_browser):
     choosen_browser = declared_browser
+    driver = None
     if choosen_browser == "Chrome":
         web_browser = webdriver.Chrome
         chrome_options = webdriver.ChromeOptions()
