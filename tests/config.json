@@ -1,6 +1,6 @@
 {
-    "existing_login": "adamus9909@gmail.com",
-    "existing_password": "12345678",
+    "existing_login": "",
+    "existing_password": "",
     "not_existing_login": "fake@gmail.com",
     "not_existing_password":"fake_password"
 }
