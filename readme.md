@@ -12,6 +12,7 @@ Automated tests
 5. Pytest-html must be installed. It can be the newest version.
 6. The config.json file must be added to the project -> See "Storing login details".
 7. After each failed test, the screenshot of last viewed screen is saved in /screenshots folder.
+8. Tu generate html report file run test with --html report_name.html. Eg. pytest --html report.html
 
 ### 2 - For the VS Code program:
 
