@@ -21,7 +21,7 @@ class TestLogin(TestBase):
     login_page = LoginPage(browsers)
     boards_page = BoardsPage(browsers)
     after_logout_page = AfterLogoutPage(browsers)
-
+    assert False
     assert welcome_page.is_opened()
     assert welcome_page.login()
     assert login_page.is_opened()
@@ -31,7 +31,7 @@ class TestLogin(TestBase):
     assert after_logout_page.is_opened()
 
     
-def test_login_fail(browsers, users):
+  def test_login_fail(self, browsers, users):
     # Init necesarry objects
     user = users(User("", ""))
     welcome_page = WelcomePage(browsers)

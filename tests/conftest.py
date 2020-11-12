@@ -43,8 +43,10 @@ def browsers(request, declared_browser):
         driver.implicitly_wait(1)
     elif choosen_browser == "Firefox":
         profile = webdriver.FirefoxProfile()
+        options = webdriver.FirefoxOptions()
+        options.add_argument('-headless')
         profile.set_preference("browser.privatebrowsing.autostart", True)
-        driver = Firefox(firefox_profile = profile)
+        driver = Firefox(firefox_profile = profile, firefox_options=options)
         driver.implicitly_wait(1)
     elif choosen_browser == "Edge":
         capabilities = DesiredCapabilities.EDGE
@@ -55,8 +57,6 @@ def browsers(request, declared_browser):
     yield driver
     driver.quit()
 
-
-
 '''
 Method for taking the screenshot and saving in the /screenshots directory. It is called in browser fixture
 '''
@@ -65,6 +65,7 @@ def take_screenshot(browsers, test_name):
     now = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
     screenshot_file_path = '{}\{}_{}.png'.format(screenshots_dir, test_name, now)
     browsers.save_screenshot(screenshot_file_path)
+    return screenshot_file_path
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -76,7 +77,6 @@ def pytest_runtest_makereport(item, call):
 
     setattr(item, "rep_" + rep.when, rep)
 
-@pytest.fixture(autouse=True, scope='function')
 def screenshot(browsers, request):
     failed_before = request.session.testsfailed
     yield None
@@ -89,3 +89,18 @@ def users():
     def _users(user):
         return user
     return _users
+
+
+@pytest.mark.hookwrapper
+def pytest_runtest_makereport(item, call):
+    pytest_html = item.config.pluginmanager.getplugin('html')
+    outcome = yield
+    report = outcome.get_result()
+    extra = getattr(report, 'extra', [])
+    if report.when == 'call':
+
+        driver = item.funcargs['browsers']
+        xfail = hasattr(report, 'wasxfail')
+        if (report.skipped and xfail) or (report.failed and not xfail):
+            extra.append(pytest_html.extras.image("file:///" + take_screenshot(driver, item.name)))
+        report.extra = extra

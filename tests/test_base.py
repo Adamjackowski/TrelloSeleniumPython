@@ -9,7 +9,6 @@ import json
 from datetime import datetime
 import json
 
-@pytest.mark.usefixtures("screenshot")
 class TestBase:
         
     @staticmethod

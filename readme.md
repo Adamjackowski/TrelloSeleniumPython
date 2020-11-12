@@ -9,8 +9,9 @@ Automated tests
 2. Python3 must be added to the PATH environment path.
 3. PyTest must be installed. It can be the newest version.
 4. Selenium must be installed. It can be the newest version.
-5. The config.json file must be added to the project -> See "Storing login details".
-6. After each failed test, the screenshot of last viewed screen is saved in /screenshots folder.
+5. Pytest-html must be installed. It can be the newest version.
+6. The config.json file must be added to the project -> See "Storing login details".
+7. After each failed test, the screenshot of last viewed screen is saved in /screenshots folder.
 
 ### 2 - For the VS Code program:
 
