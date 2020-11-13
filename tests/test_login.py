@@ -21,7 +21,6 @@ class TestLogin(TestBase):
     login_page = LoginPage(browsers)
     boards_page = BoardsPage(browsers)
     after_logout_page = AfterLogoutPage(browsers)
-    assert False
     assert welcome_page.is_opened()
     assert welcome_page.login()
     assert login_page.is_opened()
@@ -42,6 +41,6 @@ class TestLogin(TestBase):
     assert welcome_page.is_opened()
     assert welcome_page.login()
     assert login_page.is_opened()
-    assert login_page.login(user)
+    assert login_page.login(user,attlasian=False)
     assert login_page.is_login_failed()
     assert welcome_page.open()

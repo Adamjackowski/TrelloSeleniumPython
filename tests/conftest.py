@@ -102,5 +102,8 @@ def pytest_runtest_makereport(item, call):
         driver = item.funcargs['browsers']
         xfail = hasattr(report, 'wasxfail')
         if (report.skipped and xfail) or (report.failed and not xfail):
-            extra.append(pytest_html.extras.image("file:///" + take_screenshot(driver, item.name)))
+            if pytest_html != None:
+                extra.append(pytest_html.extras.image("file:///" + take_screenshot(driver, item.name)))
+            else:
+                take_screenshot(driver, item.name)
         report.extra = extra

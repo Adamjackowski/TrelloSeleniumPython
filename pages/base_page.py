@@ -14,7 +14,7 @@ class BasePage(object):
     Method which convert the locator to web element
     '''
     def element(self, *locator):
-        WebDriverWait(self.driver, 3).until(
+        WebDriverWait(self.driver, 5).until(
                 EC.visibility_of_element_located(locator))
         return self.driver.find_element(*locator)
     '''
@@ -33,7 +33,7 @@ class BasePage(object):
             element.clear()
             element.send_keys(value)
             element.click()
-            clickable = bool(element.get_attribute('value') == value)
+            clickable = bool(len(element.get_attribute('value')) == len(value))
             print("-----------------------------------")
             print(value)
             print(clickable)

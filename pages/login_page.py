@@ -23,17 +23,23 @@ class LoginPage(BasePage):
     '''
     Method for login in.
     '''
-    def login(self, user):
-        self.fill_fields(user)
-        self.check_filled_fields(user)
-        self.click(self.element(*LoginPageLocators.LOGIN_BUTTON))
+    def login(self, user, attlasian=True):
+        self.fill_fields(user, attlasian)
+        if attlasian is True:
+            self.click(self.element(*LoginPageLocators.LOGIN_BUTTON_ATTLASIAN))
+        else:
+            self.click(self.element(*LoginPageLocators.LOGIN_BUTTON))
         return True
 
     '''
     Method for filling in fields
     '''
-    def fill_fields(self, user):
+    def fill_fields(self, user, attlasian):
         self.type(self.element(*LoginPageLocators.EMAIL_INPUT), user._email)
+        self.click(self.element(*LoginPageLocators.LOGIN_BUTTON))
+        if attlasian is True:
+            WebDriverWait(self.driver, 5).until(
+                EC.visibility_of_element_located(LoginPageLocators.LOGIN_BUTTON_ATTLASIAN))
         self.type(self.element(*LoginPageLocators.PASSWORD_INPUT), user._password)
     
     '''

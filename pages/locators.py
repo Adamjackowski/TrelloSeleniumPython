@@ -8,6 +8,7 @@ class LoginPageLocators(object):
    PASSWORD_INPUT = (By.ID, "password")
    LOGIN_BUTTON = (By.ID, "login")
    ERROR_MESSAGE = (By.CSS_SELECTOR, "p.error-message")
+   LOGIN_BUTTON_ATTLASIAN = (By.ID, "login-submit")
 
 class BoardsPageLocators(object):
    USER_ICON = (By.CSS_SELECTOR, '[data-test-id="header-member-menu-button"]')

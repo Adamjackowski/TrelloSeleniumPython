@@ -11,7 +11,7 @@ class User:
     '''
     Constructor which assign all fields. Some fields can have default value.
     '''
-    def __init__(self, email = None, password = None):
+    def __init__(self, email = TestBase.data()['existing_login'], password = TestBase.data()['existing_password']):
     
         if email == None:
             self._email = TestBase.data()['existing_login']
